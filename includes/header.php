@@ -52,3 +52,7 @@ include_once 'includes/auth.php';     // Include authentication functions
             </div>
         </div>
     </nav>
+
+    <!-- Start the content wrapper -->
+    <div class="content">
+        <div class="container">

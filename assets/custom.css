@@ -1,12 +1,31 @@
 /* assets/custom.css */
 
 /* General Styles */
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+} */
+/* Make the entire page take full height */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+/* Push content to fill the available space */
+.content {
+    flex: 1; /* Pushes the footer down */
+}
+
+/* Ensure the footer is at the bottom */
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+}
+
 
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

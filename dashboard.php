@@ -29,10 +29,14 @@ try {
 <?php include 'includes/header.php'; ?>
 <div class="container mt-5">
     <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="text-primary">My Events</h2>
-        <!-- Button to Create New Event -->
-        <a href="create_event.php" class="btn btn-success">Create New Event</a>
+    <div class="row mb-4">
+        <div class="col-12 col-md-6">
+            <h2 class="text-primary">My Events</h2>
+        </div>
+        <div class="col-12 col-md-6 text-md-end text-center">
+            <!-- Button to Create New Event -->
+            <a href="create_event.php" class="btn btn-success">Create New Event</a>
+        </div>
     </div>
 
     <!-- Filter Form -->
