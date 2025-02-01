@@ -1,0 +1,102 @@
+/* assets/custom.css */
+
+/* General Styles */
+/* body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+} */
+/* Make the entire page take full height */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Push content to fill the available space */
+.content {
+    flex: 1; /* Pushes the footer down */
+}
+
+/* Ensure the footer is at the bottom */
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+}
+
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h1, h2, h3 {
+    color: #343a40;
+}
+.a {
+    color: rgb(235 238 241);
+    text-decoration: underline;
+}
+/* Form Styles */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Table Styles */
+.table {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Buttons */
+.btn-info, .btn-warning, .btn-danger {
+    margin-right: 5px;
+}
+
+/* Alerts */
+.text-success {
+    color: #28a745;
+}
+
+.text-danger {
+    color: #dc3545;
+}
