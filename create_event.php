@@ -5,10 +5,11 @@ redirectIfNotLoggedIn();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
+    $location = $_POST['location'];
     $date = $_POST['date'];
     $capacity = $_POST['capacity'];
-    $stmt = $pdo->prepare("INSERT INTO events (name, description, date, capacity, created_by) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$name, $description, $date, $capacity, $_SESSION['user_id']]);
+    $stmt = $pdo->prepare("INSERT INTO events (name, description,location, date, capacity, created_by) VALUES (?, ?,?, ?, ?, ?)");
+    $stmt->execute([$name, $description,$location, $date, $capacity, $_SESSION['user_id']]);
     header("Location: dashboard.php");
     exit;
 }
@@ -30,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="5" placeholder="Provide a detailed description of the event"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input class="form-control" id="location" name="location"  placeholder="Provide location of the event"></input>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">

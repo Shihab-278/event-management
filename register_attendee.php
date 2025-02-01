@@ -1,34 +1,51 @@
 <?php
 include 'includes/auth.php';
 include 'includes/db.php';
+
 redirectIfNotLoggedIn();
+
 $eventId = $_GET['id'];
 $stmt = $pdo->prepare("SELECT * FROM events WHERE id = ?");
 $stmt->execute([$eventId]);
 $event = $stmt->fetch();
-$eventFull = false;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+if (!$event) {
+    die("Event not found.");
+}
 
-    // Check if the event is full
-    $stmt = $pdo->prepare("SELECT COUNT(*) AS count FROM attendees WHERE event_id = ?");
-    $stmt->execute([$eventId]);
-    $count = $stmt->fetch()['count'];
+$userId = $_SESSION['user_id']; // Get the logged-in user's ID
 
-    if ($count >= $event['capacity']) {
-        $eventFull = true;
-    } else {
-        $stmt = $pdo->prepare("INSERT INTO attendees (event_id, name, email) VALUES (?, ?, ?)");
-        $stmt->execute([$eventId, $name, $email]);
-        header("Location: view_event.php?id=$eventId");
-        exit;
+// Check if the user is already registered for this event
+$stmt = $pdo->prepare("SELECT * FROM attendees WHERE event_id = ? AND user_id = ?");
+$stmt->execute([$eventId, $userId]);
+$alreadyRegistered = $stmt->fetch();
+
+if ($alreadyRegistered) {
+    $registrationError = "You are already registered for this event.";
+} else {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+
+        // Check if the event is full
+        $stmt = $pdo->prepare("SELECT COUNT(*) AS count FROM attendees WHERE event_id = ?");
+        $stmt->execute([$eventId]);
+        $count = $stmt->fetch()['count'];
+
+        if ($count >= $event['capacity']) {
+            $registrationError = "Event is full! Cannot register more attendees.";
+        } else {
+            // Register the user
+            $stmt = $pdo->prepare("INSERT INTO attendees (event_id, user_id, name, email) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$eventId, $userId, $name, $email]);
+
+            header("Location: view_event.php?id=$eventId");
+            exit;
+        }
     }
 }
 ?>
 <?php include 'includes/header.php'; ?>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6 col-sm-10">
@@ -38,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h4 class="mb-0 text-center">Register for <?= htmlspecialchars($event['name']) ?></h4>
                 </div>
                 <div class="card-body">
-                    <?php if ($eventFull): ?>
-                        <div class="alert alert-danger text-center">Event is full! Cannot register more attendees.</div>
+                    <?php if (isset($registrationError)): ?>
+                        <div class="alert alert-danger text-center"><?= $registrationError ?></div>
                     <?php endif; ?>
                     <form method="POST" id="attendee-form" novalidate>
                         <div class="mb-3">
@@ -52,14 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                             <div class="invalid-feedback">Please enter a valid email address.</div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100" <?= $eventFull ? 'disabled' : '' ?>>Register</button>
+                        <button type="submit" class="btn btn-primary w-100" <?= isset($registrationError) ? 'disabled' : '' ?>>Register</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Bootstrap JS and Custom Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -73,5 +89,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     });
 </script>
-
 <?php include 'includes/footer.php'; ?>
