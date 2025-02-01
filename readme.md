@@ -13,7 +13,7 @@ The Event Management System is a web application designed to help users manage e
 ## Setup Instructions
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/event-management-system.git
+   git clone https://github.com/Shihab-278/event-management.git
    cd event-management-system
    ```
 2. Create a MySQL database named `event_management`.
@@ -24,12 +24,14 @@ The Event Management System is a web application designed to help users manage e
 
 
 ## Login Credentials for Testing
-- Admin Account
-    Username: shihab
-    Password: 123456
-- User Account
-    Username: user
-    Password: user123
+
+### Admin Account
+- **Username:** shihab
+- **Password:** 123456
+
+### User Account
+- **Username:** user
+- **Password:** user123
 ## Technologies Used
 - PHP (Backend)
 - MySQL (Database)
