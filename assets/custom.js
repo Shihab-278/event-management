@@ -1,4 +1,4 @@
-// assets/js/script.js
+// assets/custom.js
 
 document.addEventListener('DOMContentLoaded', function () {
     // Confirm deletion of events
